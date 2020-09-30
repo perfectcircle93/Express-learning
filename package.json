@@ -5,5 +5,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "4.17.1"
-  }
+  },
+  "repository": "git@github.com:perfectcircle93/Express-learning.git",
+  "author": "Magdalena Świderska <m.swiderska@outlook.com>"
 }
