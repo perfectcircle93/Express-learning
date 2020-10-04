@@ -1,14 +1,15 @@
 const express = require('express');
 const path = require('path');
 const hbs = require('express-handlebars');
+const uploadFile = require('express-fileupload');
 
 const app = express();
 app.engine('hbs', hbs({ extname: 'hbs', layoutsDir: './views/layouts', defaultLayout: 'main' }));
 app.set('view engine', 'hbs');
 
 app.use(express.static(path.join(__dirname, '/public')));
-
 app.use(express.urlencoded({ extended: false }));
+app.use(uploadFile());
 
 
 app.get('/', (req, res) => {
@@ -38,9 +39,10 @@ app.get('/hello/:name', (req, res) => {
 app.post('/contact/send-message', (req, res) => {
 
   const { author, sender, title, message } = req.body;
+  const { files } = req;
 
-  if(author && sender && title && message) {
-    res.render('contact', { isSent: true });
+  if(author && sender && title && message && files) {
+    res.render('contact', { isSent: true, file: files.file.name });
   }
   else {
     res.render('contact', { isError: true });
